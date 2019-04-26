@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>rem</title>
+    <style>
+        p,div,span,h1 {
+            font-size: 0.1rem
+        }
+    </style>
+</head>
+<body>
+    <h1>rem</h1>
+    <p>其实也可以采用css3的媒体查询，在不同宽度范围内设置不同的html的font-size的值，</p>
+    <p>但是没有js更精确效果更好</p>
+    <p>rem布局，核心公式：设计稿元素宽度/设计稿宽度=显示元素宽度/设备宽度</p>
+    <p>此时设置html根元素的font-size为100px(方便计算),</p>
+    <p>比如：设计稿某div元素宽度为200px，设计稿元素为375px,</p>
+    <p>那么在750宽度的屏幕时，此时的2rem现实的仍然是200px,但是此时应该现实的是400px,</p>
+    <p>如果此时设备宽度刚刚好为375px,div的宽为2rem,</p>
+    <p>改变之后的font-size/100=此时设备宽度/375</p>
+        <p>所以应该改变html的font-size的值，</p>
+    <p>所以</p>
+    <div>当前屏幕宽度为
+        <span id='clientWidth'></span>，
+        当前页面html的font-size值为
+        <span id='fontSize'></span>。
+    </div>
+    </p>
+    <script>
+        (function(doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                //orientationchange 事件为手机旋转屏幕的时候触发的事件
+                //resize 手机输入框聚焦弹出输入框的时候也会触发该事件
+                recalc = function() {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+                    doc.body.style.display = 'block';
+                    document.getElementById('clientWidth').innerHTML = clientWidth;
+                    document.getElementById('fontSize').innerHTML = docEl.style.fontSize;
+                };
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);//dom结构生成之后就可以绑定该事件
+        })(document, window);
+    </script>
+</body>
+</html>
