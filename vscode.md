@@ -5,5 +5,5 @@
 	> workbench.editor.enablePreview 设为false，
 
 ---------
-#####具体步骤
+##### 具体步骤
 * mac中shift+command+p --> 输入settings --> 找到settings.json文件 --> 修改对应代码
